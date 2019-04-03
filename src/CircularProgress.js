@@ -34,6 +34,10 @@ export default class CircularProgress extends React.PureComponent {
       lineCap,
       arcSweepAngle,
       fill,
+      dashed,
+      numberOfDashes,
+      backgroundDashWidth,
+      dashWidth,
       children,
     } = this.props;
 
@@ -76,6 +80,7 @@ export default class CircularProgress extends React.PureComponent {
                 d={backgroundPath}
                 stroke={backgroundColor}
                 strokeWidth={backgroundWidth || width}
+                strokeDasharray={dashed ? [(size - (backgroundWidth || width)) * Math.PI / numberOfDashes - backgroundDashWidth, backgroundDashWidth] : []}
                 strokeLinecap={lineCap}
                 fill="transparent"
               />
@@ -85,6 +90,7 @@ export default class CircularProgress extends React.PureComponent {
                 d={circlePath}
                 stroke={tintColor}
                 strokeWidth={width}
+                strokeDasharray={dashed ? [(size - width) * Math.PI / numberOfDashes - dashWidth, dashWidth] : []}
                 strokeLinecap={lineCap}
                 fill="transparent"
               />
@@ -109,6 +115,10 @@ CircularProgress.propTypes = {
   lineCap: PropTypes.string,
   arcSweepAngle: PropTypes.number,
   children: PropTypes.func,
+  dashed: PropTypes.bool,
+  numberOfDashes: PropTypes.number,
+  backgroundDashWidth: PropTypes.number,
+  dashWidth: PropTypes.number,
 };
 
 CircularProgress.defaultProps = {
@@ -116,4 +126,8 @@ CircularProgress.defaultProps = {
   rotation: 90,
   lineCap: 'butt',
   arcSweepAngle: 360,
+  dashed: false,
+  numberOfDashes: 0,
+  backgroundDashWidth: 0,
+  dashWidth: 0,
 };
